@@ -1,0 +1,58 @@
+@import '@fontsource-variable/instrument-sans';
+@import '@fontsource-variable/bricolage-grotesque';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  h1, h2, h3 { @apply font-display text-ink; letter-spacing: -0.015em; }
+  :focus-visible { outline: 3px solid #202124; outline-offset: 2px; border-radius: 6px; }
+  ::selection { background: #FFD7BF; }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+    min-height: 44px;
+  }
+  .btn-primary { @apply bg-brand text-ink hover:bg-[#ff7d38]; }
+  .btn-secondary { @apply border border-line-strong bg-white text-ink hover:bg-[#F6F3EC]; }
+  .btn-ghost { @apply text-ink-soft hover:bg-[#F1EDE4]; }
+  .btn-danger { @apply bg-risk text-white hover:bg-[#8f1c13]; }
+  .btn-sm { @apply px-3 py-1.5; min-height: 36px; }
+  .input {
+    @apply w-full rounded-lg border border-line-strong bg-white px-3 py-2.5 text-[15px] text-ink placeholder:text-ink-mute;
+    min-height: 44px;
+  }
+  .input[aria-invalid='true'] { @apply border-risk; }
+  .card { @apply rounded-2xl border border-line bg-white shadow-soft; }
+  .link { @apply font-semibold text-brand-deep underline decoration-brand/50 underline-offset-2 hover:decoration-brand-deep; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.toast-in { animation: rise 160ms ease-out; }
+
+.print-only { display: none; }
+
+@media print {
+  @page { margin: 16mm 14mm; }
+  html, body { background: #fff !important; font-size: 11pt; }
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+  .app-shell { display: block !important; }
+  .app-main { padding: 0 !important; margin: 0 !important; max-width: none !important; }
+  .card { box-shadow: none !important; border-color: #cfcfcf !important; }
+  .report-section h2 { break-after: avoid; }
+  .report-block { break-inside: avoid; }
+  a { color: inherit !important; text-decoration: none !important; }
+}
